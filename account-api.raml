@@ -25,14 +25,6 @@ types:
             type: Account[]
             examples:
               output: !include examples/AccountExamples.raml
-
-      404:
-        body:
-          application/json:
-            example: |
-              {
-                "message": "Account not found"
-              }
             
   post:
     headers:
