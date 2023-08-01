@@ -1,0 +1,52 @@
+#%RAML 1.0
+title: Account API
+
+types:
+  Account: !include exchange_modules/dea82b66-09d6-49c6-ba36-32ee8e58d7c8/account-type/1.0.0/account-type.raml
+
+
+/accounts:
+  get:
+    headers:
+      user_id:
+
+    queryParameters:
+      AccountType:
+        required: false
+        enum:
+          - personal
+          - business
+      AccountName:
+        required: false
+    responses:
+      200:
+        body:
+          application/json:
+            type: Account[]
+            examples:
+              output: !include examples/AccountExamples.raml
+
+      404:
+        body:
+          application/json:
+            example: |
+              {
+                "message": "Account not found"
+              }
+            
+  post:
+    headers:
+      user_id:
+
+    responses:
+      201:
+        body:
+          application/json:
+            example:
+              message: Accounts created
+    body:
+      application/json:
+        type: Account
+        examples:
+          input: !include examples/AccountExamplePOST.raml
+
